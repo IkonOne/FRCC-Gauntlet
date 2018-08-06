@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 3e0b4816f3d0bc64ab4abe3a3375d925
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Augustus Beveled
+  fontNames:
+  - Augustus Beveled
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 275d71864d9295f4d8268ff61931faff, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

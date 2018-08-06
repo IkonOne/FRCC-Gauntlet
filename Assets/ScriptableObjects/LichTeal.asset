@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542250a6fe2404e539ccec7bb9764c42, type: 3}
+  m_Name: LichTeal
+  m_EditorClassIdentifier: 
+  PlayerPrefab: {fileID: 1154847709054056, guid: a93233baf6465475cb30037762e1b921,
+    type: 2}
+  UIPreviewPrefab: {fileID: 1610590512027788, guid: ba0ef0155254e4e9b9e605383b5d504f,
+    type: 2}
+  ControllerDef: {fileID: 0}
+  MissleDefinition: {fileID: 11400000, guid: 4e59709e7a0c64fa29cfb9bdc5ef866f, type: 2}
+  speed: 10
+  lookSmoothing: 0.05
+  ReloadTime: 0.5

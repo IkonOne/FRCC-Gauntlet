@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542250a6fe2404e539ccec7bb9764c42, type: 3}
+  m_Name: LichRed
+  m_EditorClassIdentifier: 
+  PlayerPrefab: {fileID: 1402366931903844, guid: 5e02b9d7c7fca4a8faa92c4cdc28d3cc,
+    type: 2}
+  UIPreviewPrefab: {fileID: 1912856412574102, guid: d050d27b9915441f39480505114c5a9f,
+    type: 2}
+  ControllerDef: {fileID: 11400000, guid: 299584b1726480f4a87236341ba65a09, type: 2}
+  MissleDefinition: {fileID: 11400000, guid: 4e59709e7a0c64fa29cfb9bdc5ef866f, type: 2}
+  speed: 10
+  lookSmoothing: 0.05
+  ReloadTime: 0.5
