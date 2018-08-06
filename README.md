@@ -1,4 +1,4 @@
-# FRCC-Walkthrough
+# FRCC-Gauntlet
 
 Hi Friends!  Welcome!  Come on in!  I'm happy to be working on this project with you.  I certainly understand that to most of you, both Unity and Git are new to you.  With that in mind, I have created a quick guide to how this project will be run.  It probably sucks.  But you you find an issue, [submit it](https://github.com/IkonOne/FRCC-Walkthrough/issues)!
 
