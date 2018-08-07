@@ -113,6 +113,34 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &16859803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 16859804}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &16859804
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 16859803}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &26470149
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +549,7 @@ GameObject:
   - component: {fileID: 265990146}
   - component: {fileID: 265990149}
   m_Layer: 9
-  m_Name: Camera
+  m_Name: GameCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -533,8 +561,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 265990144}
-  m_LocalRotation: {x: 0.41363886, y: 0, z: 0, w: 0.91044104}
-  m_LocalPosition: {x: 18.2, y: 22.99, z: 11.9}
+  m_LocalRotation: {x: 0.49269882, y: -0.000009073436, z: 0.0000051372917, w: 0.8701999}
+  m_LocalPosition: {x: 18.200314, y: 25.089996, z: 16.900002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -602,8 +630,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1671671522}
-  height: 22.9
-  distance: 20
+  height: 25
+  distance: 15
+  smoothing: 0.4
 --- !u!1 &280890712 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1235094381689210, guid: a0504de0e7864c244999adff5d8d5370,
@@ -2553,6 +2582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b15baf62058c144d6942b8333b97c623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CameraFollow: {fileID: 265990149}
   PlayerSelector: {fileID: 11400000, guid: e9613c42d41a44ebba2dd34c4ef8d63c, type: 2}
   PlayerSpawns: {fileID: 2002370434}
   ControllerDefs:

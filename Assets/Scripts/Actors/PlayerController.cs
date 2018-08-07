@@ -7,13 +7,15 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     public PlayerDef def;
     public LayerMask GroundLayers;
+    public string GameCameraName = "GameCamera";
 
     CharacterController _controller;
     PlayerView _view;
     Vector2 _inputVec = Vector2.zero;
     bool _inputFireDown;
-
     bool _isShooting;
+    Transform _gameCamera;
+    Vector3 _moveVec = Vector3.zero;
 
 	void Start () {
         _controller = GetComponent<CharacterController>();
@@ -21,6 +23,8 @@ public class PlayerController : MonoBehaviour {
 
         var health = GetComponent<Health>();
         health.OnDied += HandlePlayerDied;
+
+        _gameCamera = GameObject.Find(GameCameraName).transform;
 	}
 
     void Update()
@@ -37,6 +41,12 @@ public class PlayerController : MonoBehaviour {
             Input.GetAxisRaw(def.ControllerDef.HorizontalAxis),
             -Input.GetAxisRaw(def.ControllerDef.VerticalAxis)
         );
+
+        // Rotate the _inputVec to be relative to the game camera because
+        // the camera moves behind us, input forward might become back, left or right.
+        var euler = transform.eulerAngles;
+        euler.y = _gameCamera.eulerAngles.y;
+        transform.eulerAngles = euler;
 
         _inputFireDown = Input.GetButton(def.ControllerDef.FireButton);
 
@@ -62,13 +72,13 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     void DoMove() {
         if(_inputVec.sqrMagnitude > 0.0f) {
-            Vector3 moveVec = new Vector3(
-                _inputVec.x * def.speed,
-                0.0f,
-                _inputVec.y * def.speed
-            );
+            _moveVec =
+                transform.forward * _inputVec.y * def.speed +
+                transform.right * _inputVec.x * def.speed;
 
-            _controller.Move(moveVec * Time.deltaTime);
+            _moveVec.y = 0.0f;
+
+            _controller.Move(_moveVec * Time.deltaTime);
         }
     }
 
@@ -76,11 +86,12 @@ public class PlayerController : MonoBehaviour {
     /// Look in the input direction
     /// </summary>
     void DoLook() {
-        if(_inputVec.sqrMagnitude > 0) {
-            var angle = Vector2.SignedAngle(_inputVec, Vector2.up);
-            var dAngle = Mathf.DeltaAngle(transform.eulerAngles.y, angle);
-            transform.Rotate(Vector3.up, Mathf.LerpAngle(0, dAngle, Time.deltaTime / def.lookSmoothing));
-        }
+        _view.transform.LookAt(transform.position + _moveVec);
+        //if(_inputVec.sqrMagnitude > 0) {
+        //    var angle = Vector2.SignedAngle(_inputVec, Vector2.up);
+        //    var dAngle = Mathf.DeltaAngle(transform.eulerAngles.y, angle);
+        //    transform.Rotate(Vector3.up, Mathf.LerpAngle(0, dAngle, Time.deltaTime / def.lookSmoothing));
+        //}
     }
 
     /// <summary>
