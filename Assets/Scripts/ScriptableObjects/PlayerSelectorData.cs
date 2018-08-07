@@ -8,10 +8,17 @@ using UnityEditor;
 public class PlayerSelectorData : ScriptableObject {
     public List<PlayerDef> PlayerDefs;
 
-    int[] _indexedPlayerDefs = { -1, -1, -1, -1 }; // Indexed by player index
+    Queue<PlayerDef> _unusedPlayerDefs = new Queue<PlayerDef>();
+    PlayerDef[] _indexedPlayerDefs = new PlayerDef[4];
 
     public void Reset() {
-        _indexedPlayerDefs = new int[] { -1, -1, -1, -1 };
+        _unusedPlayerDefs.Clear();
+
+        for (int i = 0; i < 4; i++)
+        {
+            _unusedPlayerDefs.Enqueue(PlayerDefs[i]);
+            _indexedPlayerDefs[i] = null;
+        }
     }
 
     /// <summary>
@@ -20,77 +27,43 @@ public class PlayerSelectorData : ScriptableObject {
     /// <returns>The PlayerDef.  Returns null if the player is not registered.</returns>
     /// <param name="playerIndex">Player index.</param>
     public PlayerDef GetPlayerDef(int playerIndex) {
-        PlayerDef def = null;
-        if (_indexedPlayerDefs[playerIndex] != -1)
-            def = PlayerDefs[_indexedPlayerDefs[playerIndex]];
-
+        PlayerDef def = _indexedPlayerDefs[playerIndex];
         return def;
     }
 
     public PlayerDef RegisterPlayer(int playerIndex) {
         Debug.Assert(playerIndex >= 0 && playerIndex < 4);
 
-        // find the first unused PlayerDef
-        var defIdx = 0;
-        while(EnumerableContains(_indexedPlayerDefs, defIdx)) {
-            defIdx = WrapPlayerDefIndex(defIdx + 1);
-        }
 
-        _indexedPlayerDefs[playerIndex] = defIdx;
-        return PlayerDefs[defIdx];
+        if (_unusedPlayerDefs.Count == 0)
+            return _indexedPlayerDefs[playerIndex];
+
+        var def = _unusedPlayerDefs.Dequeue();
+        _indexedPlayerDefs[playerIndex] = def;
+
+        return def;
     }
 
     public void UnregisterPlayer(int playerIndex) {
         Debug.Assert(playerIndex >= 0 && playerIndex < 4);
 
-        _indexedPlayerDefs[playerIndex] = -1;
+        var def = _indexedPlayerDefs[playerIndex];
+        if (def != null)
+            _unusedPlayerDefs.Enqueue(def);
+
+        _indexedPlayerDefs[playerIndex] = null;
     }
 
     public PlayerDef GetNext(int playerIndex) {
         Debug.Assert(playerIndex >= 0 && playerIndex < 4);
 
-        var defIdx = _indexedPlayerDefs[playerIndex];
-        if (EnumerableContains(_indexedPlayerDefs, -1))
-        {
-            do
-            {
-                defIdx = WrapPlayerDefIndex(_indexedPlayerDefs[playerIndex] + 1);
-            } while (EnumerableContains(_indexedPlayerDefs, defIdx)) ;
-        }
+        if (_unusedPlayerDefs.Count == 0)
+            return _indexedPlayerDefs[playerIndex];
 
-        _indexedPlayerDefs[playerIndex] = defIdx;
-        return PlayerDefs[defIdx];
-    }
+        var next = _unusedPlayerDefs.Dequeue();
+        _unusedPlayerDefs.Enqueue(_indexedPlayerDefs[playerIndex]);
+        _indexedPlayerDefs[playerIndex] = next;
 
-    public PlayerDef GetPrevious(int playerIndex) {
-        Debug.Assert(playerIndex >= 0 && playerIndex < 4);
-
-        var defIdx = _indexedPlayerDefs[playerIndex];
-        if (EnumerableContains(_indexedPlayerDefs, -1))
-        {
-            do
-            {
-                defIdx = WrapPlayerDefIndex(defIdx - 1);
-            } while (EnumerableContains(_indexedPlayerDefs, defIdx)) ;
-        }
-
-        _indexedPlayerDefs[playerIndex] = defIdx;
-        return PlayerDefs[defIdx];
-    }
-
-    private int WrapPlayerDefIndex(int index) {
-        while (index < 0) index += PlayerDefs.Count;
-        while (index >= PlayerDefs.Count) index -= PlayerDefs.Count;
-        return index;
-    }
-
-    private bool EnumerableContains<T>(IEnumerable<T> enumerable, T obj) {
-        foreach (var item in enumerable)
-        {
-            if (item.Equals(obj))
-                return true;
-        }
-
-        return false;
+        return next;
     }
 }

@@ -12,7 +12,6 @@ public class PlayerSelectController : MonoBehaviour {
     public GameObject ButtonJoin;
     public GameObject ButtonLeave;
     public GameObject ButtonNext;
-    public GameObject ButtonPrevious;
 
     PlayerDef _currentDef;
     GameObject _characterPreview;
@@ -20,6 +19,7 @@ public class PlayerSelectController : MonoBehaviour {
     private void Start()
     {
         if(startJoined) {
+            PlayerSelector.Reset();
             OnJoinClicked();
         }
     }
@@ -28,7 +28,6 @@ public class PlayerSelectController : MonoBehaviour {
         ButtonJoin.SetActive(false);
         ButtonLeave.SetActive(true);
         ButtonNext.SetActive(true);
-        ButtonPrevious.SetActive(true);
         Platform.SetActive(true);
 
         var playerDef = PlayerSelector.RegisterPlayer(PlayerIndex);
@@ -39,15 +38,9 @@ public class PlayerSelectController : MonoBehaviour {
         ButtonJoin.SetActive(true);
         ButtonLeave.SetActive(false);
         ButtonNext.SetActive(false);
-        ButtonPrevious.SetActive(false);
         Platform.SetActive(false);
 
         PlayerSelector.UnregisterPlayer(PlayerIndex);
-    }
-
-    public void OnPreviousClicked() {
-        var prevDef = PlayerSelector.GetPrevious(PlayerIndex);
-        UpdateCurrentDef(prevDef);
     }
 
     public void OnNextClicked() {
