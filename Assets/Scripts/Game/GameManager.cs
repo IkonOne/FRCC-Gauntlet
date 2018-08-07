@@ -4,6 +4,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(PlayerSpawns))]
 public class GameManager : MonoBehaviour {
+    public CameraFollowController CameraFollow;
+
     public PlayerSelectorData PlayerSelector;
     public PlayerSpawns PlayerSpawns;
     public HudManager HudManager { get; set; }
@@ -11,15 +13,18 @@ public class GameManager : MonoBehaviour {
 
     public PlayerControllerDef[] ControllerDefs;
 
+    private AveragePlayerPosition _averagePlayerPos;
+
 	// Use this for initialization
 	void Start () {
         HudManager = FindObjectOfType<HudManager>();
         MissleManager = FindObjectOfType<MissleManager>();
+
+        HookupCameraFollowSystem();
         SpawnPlayers();
 	}
 
     void SpawnPlayers() {
-        
         for (int i = 0; i < 4; i++)
         {
             var playerDef = PlayerSelector.GetPlayerDef(i);
@@ -36,7 +41,15 @@ public class GameManager : MonoBehaviour {
                 );
 
                 player.GetComponentInChildren<PlayerAnimationEvents>().MissleManager = MissleManager;
+
+                _averagePlayerPos.PlayerTransforms.Add(player.transform);
             }
         }
+    }
+
+    void HookupCameraFollowSystem() {
+        var go = new GameObject("AveragePlayerPosition");
+        _averagePlayerPos = go.AddComponent<AveragePlayerPosition>();
+        CameraFollow.target = go.transform;
     }
 }
