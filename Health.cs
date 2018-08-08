@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//Started by Triston R
+//Made better by Erin Gunn
+//Changed by Nick.s
+//Add stuff to by: Luke J
 
 public class Health : MonoBehaviour
 {

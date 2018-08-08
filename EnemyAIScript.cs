@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// Created by: Triston Rausch
+//Edited by: Erin Gunn, Nick S.
 
 public class EnemyAIScript : MonoBehaviour
 {
@@ -123,15 +125,15 @@ public class EnemyAIScript : MonoBehaviour
         attacking = false;
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawLine(transform.position, transform.position + transform.forward * 100);
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireSphere(transform.position, attackRange / 2);
-    //    Gizmos.DrawWireSphere(transform.position + transform.forward * attackRange, attackRange / 2);
-    //    Gizmos.color = Color.blue;
-    //    Gizmos.DrawWireSphere(transform.position, stopDistance);
-    //    Gizmos.color = Color.yellow;
-    //    Gizmos.DrawWireSphere(transform.position, chaseRange);
-    //}
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * 100);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange / 2);
+        Gizmos.DrawWireSphere(transform.position + transform.forward * attackRange, attackRange / 2);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, stopDistance);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, chaseRange);
+    }
 }
