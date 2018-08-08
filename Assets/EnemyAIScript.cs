@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// Created by: Triston Rausch
+//Edited by: Erin Gunn, Nick S.
 
 public class EnemyAIScript : MonoBehaviour
 {
@@ -85,17 +87,7 @@ public class EnemyAIScript : MonoBehaviour
         RaycastHit hit;
 
         var layer = LayerMask.NameToLayer("Player");
-        Debug.Log(new
-        {
-            transform.position,
-            transform.forward,
-            layer
-        });
-
         if(Physics.SphereCast(transform.position, attackRange / 2.0f, transform.forward, out hit, attackRange, 1 << LayerMask.NameToLayer("Player")))
-
-        //test so see if something is in fornt of the object 
-        // if (Physics.Raycast(transform.position, transform.forward, out hit, LayerMask.NameToLayer("Player")))
         {
 
             anim.SetTrigger("attack01");
